@@ -13,6 +13,11 @@ radio
 ```
 
 ```template
+let REVERSE = 0
+let FORWARD = 0
+let STOP = 0
+let SPIN_RIGHT = 0
+let SPIN_LEFT = 0
 let duck: Image = null
 let heart: Image = null
 let ghost: Image = null
@@ -29,6 +34,11 @@ let channel = ""
 channel = "duck"
 // CHANGE THIS: the SAME group number as your robot
 radio.setGroup(101)
+SPIN_LEFT = 0
+SPIN_RIGHT = 1
+STOP = 2
+FORWARD = 3
+REVERSE = 4
 scene.setBackgroundColor(15)
 // Ready-made pictures - no need to change these
 duck = img`
@@ -441,82 +451,84 @@ The template comes with **ready-made pictures**: six robot icons, plus arrows an
 **Made your own icon?** Click the duck picture in ``||variables:set duck to||`` and redraw it.
 
 ## Remember the Protocol @showdialog
-The robot still understands the same numbers:
+The robot still understands the same numbers. Your code has the same **names** for them too:
 
-| Value | Move |
+| Name | Value |
 |---|---|
-| 0 | Spin left |
-| 1 | Spin right |
-| 2 | Stop |
-| 3 | Forward |
-| 4 | Reverse |
+| SPIN_LEFT | 0 |
+| SPIN_RIGHT | 1 |
+| STOP | 2 |
+| FORWARD | 3 |
+| REVERSE | 4 |
+
+The names and numbers must **match the robot's** exactly — that's the protocol.
 
 The big change today: **hold** a button to drive, **let go** to stop.
 
 ## Step 3: Up to Go Forward
-Add ``||controller:on up button pressed||`` → ``||radio:radio send value||`` ``||variables:channel||`` **= 3** and ``||sprites:set arrow image to||`` ``||variables:arrowUp||``.
+Add ``||controller:on up button pressed||`` → ``||radio:radio send value||`` ``||variables:channel||`` **=** ``||variables:FORWARD||`` and ``||sprites:set arrow image to||`` ``||variables:arrowUp||``.
 
 #### ~ tutorialhint
 The arrow on screen shows the driver what the robot has been told to do.
 
 ```blocks
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    radio.sendValue(channel, 3)
+    radio.sendValue(channel, FORWARD)
     arrow.setImage(arrowUp)
 })
 ```
 
 ## Step 4: Let Go to Stop
-Add another up block, but change **pressed** to **released**. Send **2** and show ``||variables:stopSign||``.
+Add another up block, but change **pressed** to **released**. Send ``||variables:STOP||`` and show ``||variables:stopSign||``.
 
 #### ~ tutorialhint
 Now you **hold** to drive and **let go** to stop. No more pressing A+B!
 
 ```blocks
 controller.up.onEvent(ControllerButtonEvent.Released, function () {
-    radio.sendValue(channel, 2)
+    radio.sendValue(channel, STOP)
     arrow.setImage(stopSign)
 })
 ```
 
 ## Step 5: Down for Reverse
-Do the same for **down**: pressed sends **4** with ``||variables:arrowDown||``, released sends **2** with ``||variables:stopSign||``.
+Do the same for **down**: pressed sends ``||variables:REVERSE||`` with ``||variables:arrowDown||``, released sends ``||variables:STOP||`` with ``||variables:stopSign||``.
 
 #### ~ tutorialhint
-Right-click a block and choose **Duplicate** to save time. Then change the button, number and picture.
+Right-click a block and choose **Duplicate** to save time. Then change the button, move and picture.
 
 ```blocks
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
-    radio.sendValue(channel, 4)
+    radio.sendValue(channel, REVERSE)
     arrow.setImage(arrowDown)
 })
 controller.down.onEvent(ControllerButtonEvent.Released, function () {
-    radio.sendValue(channel, 2)
+    radio.sendValue(channel, STOP)
     arrow.setImage(stopSign)
 })
 ```
 
 ## Step 6: Left and Right to Spin
-Now **left** (send **0**, ``||variables:arrowLeft||``) and **right** (send **1**, ``||variables:arrowRight||``). Each needs a **released** block too.
+Now **left** (send ``||variables:SPIN_LEFT||``, ``||variables:arrowLeft||``) and **right** (send ``||variables:SPIN_RIGHT||``, ``||variables:arrowRight||``). Each needs a **released** block too.
 
 #### ~ tutorialhint
-Every **released** block is the same: send **2** and show ``||variables:stopSign||``.
+Every **released** block is the same: send ``||variables:STOP||`` and show ``||variables:stopSign||``.
 
 ```blocks
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    radio.sendValue(channel, 0)
+    radio.sendValue(channel, SPIN_LEFT)
     arrow.setImage(arrowLeft)
 })
 controller.left.onEvent(ControllerButtonEvent.Released, function () {
-    radio.sendValue(channel, 2)
+    radio.sendValue(channel, STOP)
     arrow.setImage(stopSign)
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    radio.sendValue(channel, 1)
+    radio.sendValue(channel, SPIN_RIGHT)
     arrow.setImage(arrowRight)
 })
 controller.right.onEvent(ControllerButtonEvent.Released, function () {
-    radio.sendValue(channel, 2)
+    radio.sendValue(channel, STOP)
     arrow.setImage(stopSign)
 })
 ```

@@ -412,20 +412,38 @@ arrow.setPosition(115, 60)
 ```
 
 ## Introduction @showdialog
-Your micro:bit remote only had **two buttons**, so it could only send **three** commands.
+Your micro:bit remote had **two buttons**, so it could only send **three** moves.
 
-An Arcade controller has a D-pad, **A**, **B** and **Menu**. Today you'll use it to drive your robot with all five moves.
+An Arcade controller has a D-pad, **A**, **B** and **Menu**. Today you'll drive with all five moves.
 
-**Your robot code doesn't change at all.** Keep the robot micro:bit from Battle Bot 1 in the Move. Only the remote is new.
+**Your robot code doesn't change.** Keep Battle Bot 1 on the robot. Only the remote is new.
+
+Stuck on a step? Click the **lightbulb** for a hint.
 
 ## Step 1: Match Your Robot
-Your template has two lines to change. Both must **match your robot exactly**:
-- ``||radio:radio set group||`` — your team's group number
-- ``||variables:set channel to||`` — your robot's icon name, e.g. **duck**
+Change ``||radio:radio set group||`` and ``||variables:set channel to||`` to **match your robot exactly**.
 
-Remember the protocol from Battle Bot 1:
+#### ~ tutorialhint
+Same group number, and the same icon name (like **duck**) as Battle Bot 1. Spelling and capitals count!
 
-| Number | Move |
+```blocks
+let channel = ""
+channel = "duck"
+radio.setGroup(101)
+```
+
+## Step 2: Your Icon on Screen
+In ``||variables:set bot to sprite||``, change ``||variables:duck||`` to **your** icon.
+
+#### ~ tutorialhint
+The template comes with **ready-made pictures**: six robot icons, plus arrows and a stop sign. They match the micro:bit's icons.
+
+**Made your own icon?** Click the duck picture in ``||variables:set duck to||`` and redraw it.
+
+## Remember the Protocol @showdialog
+The robot still understands the same numbers:
+
+| Value | Move |
 |---|---|
 | 0 | Spin left |
 | 1 | Spin right |
@@ -433,18 +451,12 @@ Remember the protocol from Battle Bot 1:
 | 3 | Forward |
 | 4 | Reverse |
 
-## Step 2: Show Your Robot's Icon
-Your template comes with **ready-made pictures**: six robot icons (duck, heart, ghost, rabbit, giraffe, snake), plus arrows and a stop sign. They look just like the micro:bit's icons.
-
-Find ``||variables:set bot to sprite of kind Player||``. Change ``||variables:duck||`` to **your** robot's icon, so the screen matches your robot.
-
-**Made your own icon in Battle Bot 1?** Click the duck picture inside ``||variables:set duck to||`` and redraw it to match your robot.
+The big change today: **hold** a button to drive, **let go** to stop.
 
 ## Step 3: Up to Go Forward
-From ``||controller:Controller||``, drag ``||controller:on up button pressed||``. Inside it:
-- ``||radio:radio send value||`` ``||variables:channel||`` = **3**
-- ``||sprites:set arrow image to||`` ``||variables:arrowUp||``
+Add ``||controller:on up button pressed||`` → ``||radio:radio send value||`` ``||variables:channel||`` **= 3** and ``||sprites:set arrow image to||`` ``||variables:arrowUp||``.
 
+#### ~ tutorialhint
 The arrow on screen shows the driver what the robot has been told to do.
 
 ```blocks
@@ -455,13 +467,10 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
 ```
 
 ## Step 4: Let Go to Stop
-This is the big change from your micro:bit remote.
+Add another up block, but change **pressed** to **released**. Send **2** and show ``||variables:stopSign||``.
 
-Drag another ``||controller:on up button pressed||`` and change **pressed** to **released**. Inside it:
-- ``||radio:radio send value||`` ``||variables:channel||`` = **2**
-- ``||sprites:set arrow image to||`` ``||variables:stopSign||``
-
-Now you **hold** to drive and **let go** to stop — no more pressing A+B!
+#### ~ tutorialhint
+Now you **hold** to drive and **let go** to stop. No more pressing A+B!
 
 ```blocks
 controller.up.onEvent(ControllerButtonEvent.Released, function () {
@@ -470,15 +479,11 @@ controller.up.onEvent(ControllerButtonEvent.Released, function () {
 })
 ```
 
-## Step 5: The Other Three Directions
-Do the same for the rest of the D-pad. Each one needs a **pressed** block and a **released** block:
+## Step 5: Down for Reverse
+Do the same for **down**: pressed sends **4** with ``||variables:arrowDown||``, released sends **2** with ``||variables:stopSign||``.
 
-- ``||controller:down||`` pressed → **4** and ``||variables:arrowDown||``
-- ``||controller:left||`` pressed → **0** and ``||variables:arrowLeft||``
-- ``||controller:right||`` pressed → **1** and ``||variables:arrowRight||``
-- Every **released** → **2** and ``||variables:stopSign||``
-
-Tip: right-click a block and choose **Duplicate** to save time.
+#### ~ tutorialhint
+Right-click a block and choose **Duplicate** to save time. Then change the button, number and picture.
 
 ```blocks
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -489,6 +494,15 @@ controller.down.onEvent(ControllerButtonEvent.Released, function () {
     radio.sendValue(channel, 2)
     arrow.setImage(stopSign)
 })
+```
+
+## Step 6: Left and Right to Spin
+Now **left** (send **0**, ``||variables:arrowLeft||``) and **right** (send **1**, ``||variables:arrowRight||``). Each needs a **released** block too.
+
+#### ~ tutorialhint
+Every **released** block is the same: send **2** and show ``||variables:stopSign||``.
+
+```blocks
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     radio.sendValue(channel, 0)
     arrow.setImage(arrowLeft)
@@ -507,28 +521,27 @@ controller.right.onEvent(ControllerButtonEvent.Released, function () {
 })
 ```
 
-## Step 6: Test in the Simulator
-The simulator can't reach your real robot, but you can check your buttons.
+## Step 7: Test in the Simulator
+Use the **arrow keys** on your keyboard. Does the arrow change, and show the stop sign when you let go?
 
-Use the arrow keys on your keyboard. The arrow on screen should change when you press, and show the **stop sign** when you let go.
+#### ~ tutorialhint
+The simulator can't reach your real robot, but it checks your buttons work.
 
-## Step 7: Download to Your Controller
-Click **Download** and choose your **micro:bit V2** Arcade hardware. Flash it to the micro:bit in your Arcade controller.
+## Step 8: Download and Drive
+Click **Download**, choose your **micro:bit V2** Arcade hardware, and flash it. Switch on the robot, then the controller.
 
-Switch on your robot (still running Battle Bot 1), then your controller. Drive!
+#### ~ tutorialhint
+Robot not responding? Check the **group** and **name** match Battle Bot 1 exactly.
 
-If the robot doesn't respond, check the **group** and **name** match exactly — spelling and capitals count.
+## Step 9: What If a Message Gets Lost?
+Hold **up** to drive, then switch the controller **off** while still holding. What does the robot do?
 
-## Step 8: Play and Notice
-Play a game of soccer. Then think about this:
-
-Radio messages can sometimes get **lost**. What would happen if the **stop** message got lost when you let go of a button?
-
-Try it: drive forward, then switch the controller **off** while holding up. What does the robot do?
+#### ~ tutorialhint
+The robot never got the **stop** message, so it keeps going. Radio messages can sometimes get lost. Battle Bot 3 fixes this.
 
 ## Complete! @showdialog
-You swapped the remote — and didn't change the robot at all. That works because both use the same **protocol**: the same numbers mean the same moves.
+You swapped the remote without changing the robot at all. That's the **protocol** at work: same numbers, same moves.
 
-But you've also found a problem: if a message is lost, your robot can run away. In **Battle Bot 3** you'll add a **safety stop** so that can never happen. Start with the robot:
+But a lost message can make your robot run away. **Battle Bot 3** adds a **safety stop**. Start with the robot:
 
 https://makecode.microbit.org/#tutorial:github:cggs-matthew-pham/cggs-stem-club-microbit/battlebot-3-robot

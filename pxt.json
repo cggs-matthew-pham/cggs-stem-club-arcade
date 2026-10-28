@@ -1,0 +1,27 @@
+{
+    "name": "cggs-stem-club-arcade",
+    "description": "STEM Club MakeCode Arcade tutorials (battle bot controller)",
+    "dependencies": {
+        "device": "*",
+        "radio": "*"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md",
+        "battlebot-2-controller.md",
+        "battlebot-3-controller.md",
+        "battlebot-4-controller.md"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "target": "2.0.63",
+        "targetId": "arcade"
+    },
+    "supportedTargets": [
+        "arcade"
+    ],
+    "preferredEditor": "blocksprj"
+}

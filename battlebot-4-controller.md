@@ -549,7 +549,16 @@ Your robot knows three new things. Time to give the driver the buttons:
 Change ``||radio:radio set group||`` and ``||variables:set channel to||`` to match **your** robot. In ``||variables:set bot to sprite||``, pick your icon.
 
 #### ~ tutorialhint
-Every tutorial starts fresh with the **duck** and group **101**. Use the same ones as your robot.
+Every tutorial starts fresh with the **duck** and group **101**. Use the same ones as your robot. Here's a **heart** robot, for example:
+
+```blocks
+// @hide
+let heart: Image = null
+let channel = ""
+channel = "heart"
+radio.setGroup(101)
+let bot = sprites.create(heart, SpriteKind.Player)
+```
 
 ## Step 2: Curve Left
 Inside the **up** part, under ``||sprites:set arrow image to arrowUp||``, add ``||logic:if||`` ``||controller:is left button pressed||``. Inside: ``||variables:set command to||`` ``||variables:CURVE_LEFT||`` and ``||sprites:set arrow image to||`` ``||variables:curveLeft||``.

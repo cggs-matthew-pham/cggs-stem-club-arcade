@@ -446,12 +446,18 @@ radio.setGroup(101)
 ```
 
 ## Step 2: Your Icon on Screen
-In ``||variables:set bot to sprite||``, change ``||variables:duck||`` to **your** icon.
+In ``||variables:set bot to sprite||``, change ``||variables:duck||`` to **your** icon. Here's a **heart** robot, for example:
 
 #### ~ tutorialhint
 The template comes with **ready-made pictures**: six robot icons, plus arrows and a stop sign. They match the micro:bit's icons.
 
 **Made your own icon?** Open the ``||functions:setupPictures||`` function, click the duck picture and redraw it.
+
+```blocks
+// @hide
+let heart: Image = null
+let bot = sprites.create(heart, SpriteKind.Player)
+```
 
 ## Remember the Protocol @showdialog
 The robot still understands the same numbers. Your code has the same **names** for them too:

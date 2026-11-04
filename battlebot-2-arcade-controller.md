@@ -540,8 +540,8 @@ Use the **arrow keys** on your keyboard. Does the arrow change, and show the sto
 The simulator can't reach your real robot, but it checks your buttons work.
 
 ## Step 8: Download to Your Controller
-1. Click **Download**. If it asks which hardware, pick **micro:bit V2**.
-2. A **.hex** file saves to your computer.
+1. Click **•••** next to **Download** → **Choose Hardware** → **Kitronik Arcade for micro:bit**.
+2. Click **•••** again → **Download as File**. A **.hex** file saves to your computer.
 3. Plug your controller's micro:bit into the computer with a USB cable.
 4. Drag the .hex file onto the **MICROBIT** drive.
 

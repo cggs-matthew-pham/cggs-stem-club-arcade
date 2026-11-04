@@ -510,20 +510,27 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 ```
 
-## Duplicate! @showdialog
-The next blocks look almost the same as the one you just made. Instead of dragging new blocks, **copy** it:
+## Pressed and Released @showdialog
+A button press is really **two** moments:
 
-1. **Right-click** the block (on a Chromebook, tap with two fingers)
-2. Choose **Duplicate**
-3. Change the bits that are different
+| Moment | Event | What we'll send |
+|---|---|---|
+| Finger goes **down** | ``||controller:on up button pressed||`` | FORWARD |
+| *(holding... nothing runs)* | | |
+| Finger comes **up** | ``||controller:on up button released||`` | STOP |
 
-It's faster, and you're less likely to miss a block.
+Each event runs **once**. While you hold the button, **nothing** is sent. The robot just keeps doing the last thing it was told.
+
+So to stop when you let go, we need a **released** block too.
 
 ## Step 6: Let Go to Stop
-**Duplicate** your up block. In the copy, change **pressed** to **released**, ``||variables:FORWARD||`` to ``||variables:STOP||``, and ``||variables:arrowUp||`` to ``||variables:stopSign||``.
+**Right-click** your up block and choose **Duplicate**. In the copy, change:
+- **pressed** → **released**
+- ``||variables:FORWARD||`` → ``||variables:STOP||``
+- ``||variables:arrowUp||`` → ``||variables:stopSign||``
 
 #### ~ tutorialhint
-Now you **hold** to drive and **let go** to stop. No more pressing A+B!
+On a Chromebook, tap with **two fingers** to right-click. Duplicating is faster than dragging new blocks, and you're less likely to miss one.
 
 ```blocks
 let arrow: Sprite = null
@@ -533,8 +540,16 @@ controller.up.onEvent(ControllerButtonEvent.Released, function () {
 })
 ```
 
-## Step 7: Down for Reverse
-Do the same for **down**: pressed sends ``||variables:REVERSE||`` with ``||variables:arrowDown||``, released sends ``||variables:STOP||`` with ``||variables:stopSign||``.
+## Step 7: Try It
+In the simulator, **hold** the up arrow key, then **let go**. Watch the picture.
+
+#### ~ tutorialhint
+- Finger down: **pressed** runs → arrow
+- Holding: nothing runs → arrow stays
+- Finger up: **released** runs → stop sign
+
+## Step 8: Down for Reverse
+Every button needs a **pair**: one **pressed**, one **released**. For **down**: pressed sends ``||variables:REVERSE||`` with ``||variables:arrowDown||``, released sends ``||variables:STOP||`` with ``||variables:stopSign||``.
 
 #### ~ tutorialhint
 Duplicate your two up blocks, then change the button, move and picture in each copy.
@@ -551,8 +566,8 @@ controller.down.onEvent(ControllerButtonEvent.Released, function () {
 })
 ```
 
-## Step 8: Left and Right to Spin
-Now **left** (send ``||variables:SPIN_LEFT||``, ``||variables:arrowLeft||``) and **right** (send ``||variables:SPIN_RIGHT||``, ``||variables:arrowRight||``). Each needs a **released** block too.
+## Step 9: Left and Right to Spin
+Now **left** (send ``||variables:SPIN_LEFT||``, ``||variables:arrowLeft||``) and **right** (send ``||variables:SPIN_RIGHT||``, ``||variables:arrowRight||``). Don't forget each one's **released** pair!
 
 #### ~ tutorialhint
 Duplicate again! Every **released** block is the same: send ``||variables:STOP||`` and show ``||variables:stopSign||``.
@@ -577,13 +592,13 @@ controller.right.onEvent(ControllerButtonEvent.Released, function () {
 })
 ```
 
-## Step 9: Test in the Simulator
+## Step 10: Test in the Simulator
 Use the **arrow keys** on your keyboard. Does the arrow change, and show the stop sign when you let go?
 
 #### ~ tutorialhint
 The simulator can't reach your real robot, but it checks your buttons work.
 
-## Step 10: Download to Your Controller
+## Step 11: Download to Your Controller
 1. Click **•••** next to **Download** → **Choose Hardware** → **Kitronik Arcade for micro:bit**.
 2. Click **•••** again → **Download as File**. A **.hex** file saves to your computer.
 3. Plug your controller's micro:bit into the computer with a USB cable.
@@ -594,17 +609,17 @@ The **MICROBIT** drive appears in File Explorer (or Finder on a Mac), like a USB
 
 Can't find the .hex file? Look in your **Downloads** folder.
 
-## Step 11: Drive!
+## Step 12: Drive!
 Switch on the robot, then the controller. Hold the D-pad to drive.
 
 #### ~ tutorialhint
 Robot not responding? Check the **group** and **name** match Battle Bot 1 exactly.
 
-## Step 12: What If a Message Gets Lost?
+## Step 13: What If a Message Gets Lost?
 Hold **up** to drive, then switch the controller **off** while still holding. What does the robot do?
 
 #### ~ tutorialhint
-The robot never got the **stop** message, so it keeps going. Radio messages can sometimes get lost. Battle Bot 3 fixes this.
+The **released** event never ran, so the robot never got **STOP**. It keeps doing the last thing it was told. Radio messages can sometimes get lost. Battle Bot 3 fixes this.
 
 ## Complete! @showdialog
 You swapped the remote without changing the robot at all. That's the **protocol** at work: same numbers, same moves.

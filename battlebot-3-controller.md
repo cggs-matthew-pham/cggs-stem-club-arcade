@@ -543,7 +543,11 @@ for (let index = 0; index < 3; index++) {
 ```
 
 ## Keep Talking @showdialog
-Now the big change. Instead of 8 separate button blocks, you'll use **one** block that checks the buttons **10 times every second** and sends whatever is being held.
+Now the big change.
+
+**On pressed** and **on released** run **once**, when a button changes. While you hold a button, they send nothing.
+
+Instead, you'll use **one** block that asks *"which button is held **right now**?"* **10 times every second**, and sends the answer.
 
 Nothing held? It sends ``||variables:STOP||``.
 

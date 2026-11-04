@@ -454,7 +454,6 @@ The template comes with **ready-made pictures**: six robot icons, plus arrows an
 **Made your own icon?** Open the ``||functions:setupPictures||`` function, click the duck picture and redraw it.
 
 ```blocks
-// @hide
 let heart: Image = null
 let bot = sprites.create(heart, SpriteKind.Player)
 ```
@@ -474,14 +473,36 @@ The names and numbers must **match the robot's** exactly — that's the protocol
 
 The big change today: **hold** a button to drive, **let go** to stop.
 
-## Step 3: Up to Go Forward
-Add ``||controller:on up button pressed||`` → ``||radio:radio send value||`` ``||variables:channel||`` **=** ``||variables:FORWARD||`` and ``||sprites:set arrow image to||`` ``||variables:arrowUp||``.
+## Step 3: Up Button
+From ``||controller:Controller||``, drag out ``||controller:on up button pressed||``.
 
 #### ~ tutorialhint
-The arrow on screen shows the driver what the robot has been told to do.
+Everything inside this block happens when you press **up** on the D-pad.
 
 ```blocks
-// @hide
+controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+})
+```
+
+## Step 4: Send Forward
+Inside it, add ``||radio:radio send value||``. Put ``||variables:channel||`` in the first space and ``||variables:FORWARD||`` in the second.
+
+#### ~ tutorialhint
+Just like your micro:bit remote: the name on the front, the move inside.
+
+```blocks
+controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    radio.sendValue(channel, FORWARD)
+})
+```
+
+## Step 5: Show the Arrow
+Under the send, add ``||sprites:set mySprite image to||``. Change **mySprite** to ``||variables:arrow||``, and the picture to ``||variables:arrowUp||``.
+
+#### ~ tutorialhint
+The block is in ``||sprites:Sprites||``. The arrow on screen shows the driver what the robot has been told to do.
+
+```blocks
 let arrow: Sprite = null
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     radio.sendValue(channel, FORWARD)
@@ -489,14 +510,13 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 ```
 
-## Step 4: Let Go to Stop
+## Step 6: Let Go to Stop
 Add another up block, but change **pressed** to **released**. Send ``||variables:STOP||`` and show ``||variables:stopSign||``.
 
 #### ~ tutorialhint
 Now you **hold** to drive and **let go** to stop. No more pressing A+B!
 
 ```blocks
-// @hide
 let arrow: Sprite = null
 controller.up.onEvent(ControllerButtonEvent.Released, function () {
     radio.sendValue(channel, STOP)
@@ -504,14 +524,13 @@ controller.up.onEvent(ControllerButtonEvent.Released, function () {
 })
 ```
 
-## Step 5: Down for Reverse
+## Step 7: Down for Reverse
 Do the same for **down**: pressed sends ``||variables:REVERSE||`` with ``||variables:arrowDown||``, released sends ``||variables:STOP||`` with ``||variables:stopSign||``.
 
 #### ~ tutorialhint
 Right-click a block and choose **Duplicate** to save time. Then change the button, move and picture.
 
 ```blocks
-// @hide
 let arrow: Sprite = null
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     radio.sendValue(channel, REVERSE)
@@ -523,14 +542,13 @@ controller.down.onEvent(ControllerButtonEvent.Released, function () {
 })
 ```
 
-## Step 6: Left and Right to Spin
+## Step 8: Left and Right to Spin
 Now **left** (send ``||variables:SPIN_LEFT||``, ``||variables:arrowLeft||``) and **right** (send ``||variables:SPIN_RIGHT||``, ``||variables:arrowRight||``). Each needs a **released** block too.
 
 #### ~ tutorialhint
 Every **released** block is the same: send ``||variables:STOP||`` and show ``||variables:stopSign||``.
 
 ```blocks
-// @hide
 let arrow: Sprite = null
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     radio.sendValue(channel, SPIN_LEFT)
@@ -550,13 +568,13 @@ controller.right.onEvent(ControllerButtonEvent.Released, function () {
 })
 ```
 
-## Step 7: Test in the Simulator
+## Step 9: Test in the Simulator
 Use the **arrow keys** on your keyboard. Does the arrow change, and show the stop sign when you let go?
 
 #### ~ tutorialhint
 The simulator can't reach your real robot, but it checks your buttons work.
 
-## Step 8: Download to Your Controller
+## Step 10: Download to Your Controller
 1. Click **•••** next to **Download** → **Choose Hardware** → **Kitronik Arcade for micro:bit**.
 2. Click **•••** again → **Download as File**. A **.hex** file saves to your computer.
 3. Plug your controller's micro:bit into the computer with a USB cable.
@@ -567,13 +585,13 @@ The **MICROBIT** drive appears in File Explorer (or Finder on a Mac), like a USB
 
 Can't find the .hex file? Look in your **Downloads** folder.
 
-## Step 9: Drive!
+## Step 11: Drive!
 Switch on the robot, then the controller. Hold the D-pad to drive.
 
 #### ~ tutorialhint
 Robot not responding? Check the **group** and **name** match Battle Bot 1 exactly.
 
-## Step 10: What If a Message Gets Lost?
+## Step 12: What If a Message Gets Lost?
 Hold **up** to drive, then switch the controller **off** while still holding. What does the robot do?
 
 #### ~ tutorialhint

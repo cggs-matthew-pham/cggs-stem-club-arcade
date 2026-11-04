@@ -772,7 +772,7 @@ When this box pops up, click **Done**. Your file is saved.
 
 ## Step 10: Copy It to Your Controller
 1. Plug your controller's micro:bit into the computer with a USB cable.
-2. Open **File Explorer** and find your file. It ends in **.hex**.
+2. Open **File Explorer** and find your file. Its name starts with **arcade-** and ends in **.hex**.
 3. Drag it onto **MICROBIT**.
 
 ![Dragging the hex file onto the MICROBIT drive](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/drag-to-microbit.png)

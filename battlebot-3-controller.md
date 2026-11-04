@@ -665,11 +665,9 @@ game.onUpdateInterval(100, function () {
 ## Step 13: Test in the Simulator
 Press **Z** (that's **A**) to pick red. Then hold the **arrow keys**. Does the arrow change, and show the stop sign when you let go?
 
-## Step 14: Download to Your Controller
+## Step 14: Download the File
 1. Click **•••** next to **Download** → **Choose Hardware** → **Kitronik Arcade for micro:bit**.
-2. Click **•••** again → **Download as File**. A **.hex** file saves to your computer.
-3. Plug your controller's micro:bit into the computer with a USB cable.
-4. Drag the .hex file onto the **MICROBIT** drive.
+2. Click **•••** again → **Download as File**.
 
 ![The ••• menu next to Download, showing Choose Hardware and Download as File](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/download-menu.png)
 
@@ -678,11 +676,29 @@ Pick this one in **Choose Hardware**:
 
 ![The Kitronik Arcade for micro:bit hardware card](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/choose-hardware-kitronik-arcade.png)
 
-The **MICROBIT** drive appears in File Explorer (or Finder on a Mac), like a USB stick. When the light on the micro:bit stops flashing, it's done.
+When this box pops up, click **Done**. Your file is saved.
 
-Can't find the .hex file? Look in your **Downloads** folder.
+![The Download completed box](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/download-completed.png)
 
-## Step 15: Test the Safety Stop
+## Step 15: Copy It to Your Controller
+1. Plug your controller's micro:bit into the computer with a USB cable.
+2. Open **File Explorer** and find your file. It ends in **.hex**.
+3. Drag it onto **MICROBIT**.
+
+![Dragging the hex file onto the MICROBIT drive](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/drag-to-microbit.png)
+
+#### ~ tutorialhint
+Can't find the file? It's in your **Downloads** folder:
+
+![The hex file in the Downloads folder](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/downloads-folder.png)
+
+Or click the **download** button at the top of Chrome, then the **folder** icon:
+
+![Chrome's download history with the folder icon](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/chrome-downloads.png)
+
+When the light on the micro:bit stops flashing, it's done.
+
+## Step 16: Test the Safety Stop
 Switch on the robot (running **Battle Bot 3: Safety Stop (Robot)**), then the controller.
 
 #### ~ tutorialhint

@@ -602,11 +602,9 @@ Use the **arrow keys** on your keyboard. Does the arrow change, and show the sto
 #### ~ tutorialhint
 The simulator can't reach your real robot, but it checks your buttons work.
 
-## Step 11: Download to Your Controller
+## Step 11: Download the File
 1. Click **•••** next to **Download** → **Choose Hardware** → **Kitronik Arcade for micro:bit**.
-2. Click **•••** again → **Download as File**. A **.hex** file saves to your computer.
-3. Plug your controller's micro:bit into the computer with a USB cable.
-4. Drag the .hex file onto the **MICROBIT** drive.
+2. Click **•••** again → **Download as File**.
 
 ![The ••• menu next to Download, showing Choose Hardware and Download as File](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/download-menu.png)
 
@@ -615,17 +613,35 @@ Pick this one in **Choose Hardware**:
 
 ![The Kitronik Arcade for micro:bit hardware card](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/choose-hardware-kitronik-arcade.png)
 
-The **MICROBIT** drive appears in File Explorer (or Finder on a Mac), like a USB stick. When the light on the micro:bit stops flashing, it's done.
+When this box pops up, click **Done**. Your file is saved.
 
-Can't find the .hex file? Look in your **Downloads** folder.
+![The Download completed box](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/download-completed.png)
 
-## Step 12: Drive!
+## Step 12: Copy It to Your Controller
+1. Plug your controller's micro:bit into the computer with a USB cable.
+2. Open **File Explorer** and find your file. It ends in **.hex**.
+3. Drag it onto **MICROBIT**.
+
+![Dragging the hex file onto the MICROBIT drive](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/drag-to-microbit.png)
+
+#### ~ tutorialhint
+Can't find the file? It's in your **Downloads** folder:
+
+![The hex file in the Downloads folder](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/downloads-folder.png)
+
+Or click the **download** button at the top of Chrome, then the **folder** icon:
+
+![Chrome's download history with the folder icon](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/chrome-downloads.png)
+
+When the light on the micro:bit stops flashing, it's done.
+
+## Step 13: Drive!
 Switch on the robot, then the controller. Hold the D-pad to drive.
 
 #### ~ tutorialhint
 Robot not responding? Check the **group** and **name** match Battle Bot 1 exactly.
 
-## Step 13: What If a Message Gets Lost?
+## Step 14: What If a Message Gets Lost?
 Hold **up** to drive, then switch the controller **off** while still holding. What does the robot do?
 
 #### ~ tutorialhint

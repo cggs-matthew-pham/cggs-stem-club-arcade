@@ -446,7 +446,7 @@ radio.setGroup(101)
 ```
 
 ## Step 2: Your Icon on Screen
-In ``||variables:set bot to sprite||``, change ``||variables:duck||`` to **your** icon. Here's a **heart** robot, for example:
+In ``||variables:set bot to sprite||``, change ``||variables:duck||`` to **your** icon. The lightbulb shows a **heart** robot as an example.
 
 #### ~ tutorialhint
 The template comes with **ready-made pictures**: six robot icons, plus arrows and a stop sign. They match the micro:bit's icons.

@@ -1,6 +1,6 @@
 ### @title Battle Bot 4: Battle Upgrades (Controller)
 
-### @description Add curving, turbo and attack buttons to your Arcade controller, ready for sumo.
+### @description Add curving, turbo and attack buttons to your Arcade controller.
 
 ### @preferredEditor blocks
 
@@ -13,6 +13,16 @@ radio
 ```
 
 ```template
+let ATTACK = 0
+let CURVE_RIGHT = 0
+let CURVE_LEFT = 0
+let TEAM_BLUE = 0
+let TEAM_RED = 0
+let REVERSE = 0
+let FORWARD = 0
+let STOP = 0
+let SPIN_RIGHT = 0
+let SPIN_LEFT = 0
 let duck: Image = null
 let heart: Image = null
 let ghost: Image = null
@@ -24,14 +34,25 @@ let arrowDown: Image = null
 let arrowLeft: Image = null
 let arrowRight: Image = null
 let stopSign: Image = null
-let curveLeft: Image = null
 let curveRight: Image = null
+let curveLeft: Image = null
+let team = 0
 let command = 0
 let channel = ""
 // CHANGE THIS: the SAME icon name as your robot, e.g. duck
 channel = "duck"
 // CHANGE THIS: the SAME group number as your robot
 radio.setGroup(101)
+SPIN_LEFT = 0
+SPIN_RIGHT = 1
+STOP = 2
+FORWARD = 3
+REVERSE = 4
+TEAM_RED = 5
+TEAM_BLUE = 6
+CURVE_LEFT = 7
+CURVE_RIGHT = 8
+ATTACK = 9
 scene.setBackgroundColor(15)
 // Ready-made pictures - no need to change these
 duck = img`
@@ -70,36 +91,36 @@ duck = img`
     `
 heart = img`
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 . . . . . . 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 . . . . . . 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 . . . . . . 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 . . . . . . 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 . . . . . . 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 . . . . . . 2 2 2 2 2 2 . . . . . . .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . . . . . . . 2 2 2 2 2 2 . . . . . . . . . . . . .
-    . . . . . . . . . . . . . 2 2 2 2 2 2 . . . . . . . . . . . . .
-    . . . . . . . . . . . . . 2 2 2 2 2 2 . . . . . . . . . . . . .
-    . . . . . . . . . . . . . 2 2 2 2 2 2 . . . . . . . . . . . . .
-    . . . . . . . . . . . . . 2 2 2 2 2 2 . . . . . . . . . . . . .
-    . . . . . . . . . . . . . 2 2 2 2 2 2 . . . . . . . . . . . . .
+    . . . . . . . 3 3 3 3 3 3 . . . . . . 3 3 3 3 3 3 . . . . . . .
+    . . . . . . . 3 3 3 3 3 3 . . . . . . 3 3 3 3 3 3 . . . . . . .
+    . . . . . . . 3 3 3 3 3 3 . . . . . . 3 3 3 3 3 3 . . . . . . .
+    . . . . . . . 3 3 3 3 3 3 . . . . . . 3 3 3 3 3 3 . . . . . . .
+    . . . . . . . 3 3 3 3 3 3 . . . . . . 3 3 3 3 3 3 . . . . . . .
+    . . . . . . . 3 3 3 3 3 3 . . . . . . 3 3 3 3 3 3 . . . . . . .
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 .
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 .
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 .
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 .
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 .
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 .
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 .
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 .
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 .
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 .
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 .
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 .
+    . . . . . . . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . . . . . . .
+    . . . . . . . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . . . . . . .
+    . . . . . . . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . . . . . . .
+    . . . . . . . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . . . . . . .
+    . . . . . . . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . . . . . . .
+    . . . . . . . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . . . . . . .
+    . . . . . . . . . . . . . 3 3 3 3 3 3 . . . . . . . . . . . . .
+    . . . . . . . . . . . . . 3 3 3 3 3 3 . . . . . . . . . . . . .
+    . . . . . . . . . . . . . 3 3 3 3 3 3 . . . . . . . . . . . . .
+    . . . . . . . . . . . . . 3 3 3 3 3 3 . . . . . . . . . . . . .
+    . . . . . . . . . . . . . 3 3 3 3 3 3 . . . . . . . . . . . . .
+    . . . . . . . . . . . . . 3 3 3 3 3 3 . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
     `
 ghost = img`
@@ -376,70 +397,36 @@ arrowRight = img`
     `
 stopSign = img`
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . .
-    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-    `
-curveLeft = img`
-    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 . . . . . . 1 1 1 1 1 1 . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 . . . . . . 1 1 1 1 1 1 . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 . . . . . . 1 1 1 1 1 1 . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 . . . . . . 1 1 1 1 1 1 . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 . . . . . . 1 1 1 1 1 1 . . . . . . . . . . . . .
-    . 1 1 1 1 1 1 . . . . . . 1 1 1 1 1 1 . . . . . . . . . . . . .
-    . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 . . . . . . .
-    . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 . . . . . . .
-    . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 . . . . . . .
-    . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 . . . . . . .
-    . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 . . . . . . .
-    . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 . . . . . . .
-    . . . . . . . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 .
-    . . . . . . . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 .
-    . . . . . . . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 .
-    . . . . . . . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 .
-    . . . . . . . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 .
-    . . . . . . . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 .
+    . . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . .
+    . . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . .
+    . . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . .
+    . . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . .
+    . . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . .
+    . . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 .
+    . . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . .
+    . . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . .
+    . . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . .
+    . . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . .
+    . . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . .
+    . . . . . . . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . .
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
     `
 curveRight = img`
@@ -476,24 +463,69 @@ curveRight = img`
     . 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
     `
+curveLeft = img`
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 . . . . . . 1 1 1 1 1 1 . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 . . . . . . 1 1 1 1 1 1 . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 . . . . . . 1 1 1 1 1 1 . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 . . . . . . 1 1 1 1 1 1 . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 . . . . . . 1 1 1 1 1 1 . . . . . . . . . . . . .
+    . 1 1 1 1 1 1 . . . . . . 1 1 1 1 1 1 . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 . . . . . . .
+    . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 . . . . . . .
+    . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 . . . . . . .
+    . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 . . . . . . .
+    . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 . . . . . . .
+    . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 .
+    . . . . . . . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 .
+    . . . . . . . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 .
+    . . . . . . . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 .
+    . . . . . . . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 .
+    . . . . . . . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    `
 let bot = sprites.create(duck, SpriteKind.Player)
 bot.setPosition(45, 60)
 let arrow = sprites.create(stopSign, SpriteKind.Player)
 arrow.setPosition(115, 60)
+if (game.ask("Red team?", "A = red  B = blue")) {
+    team = TEAM_RED
+    scene.setBackgroundColor(2)
+} else {
+    team = TEAM_BLUE
+    scene.setBackgroundColor(8)
+}
+for (let index = 0; index < 3; index++) {
+    radio.sendValue(channel, team)
+    pause(100)
+}
 game.onUpdateInterval(100, function () {
-    command = 2
+    command = STOP
     arrow.setImage(stopSign)
     if (controller.up.isPressed()) {
-        command = 3
+        command = FORWARD
         arrow.setImage(arrowUp)
     } else if (controller.down.isPressed()) {
-        command = 4
+        command = REVERSE
         arrow.setImage(arrowDown)
     } else if (controller.left.isPressed()) {
-        command = 0
+        command = SPIN_LEFT
         arrow.setImage(arrowLeft)
     } else if (controller.right.isPressed()) {
-        command = 1
+        command = SPIN_RIGHT
         arrow.setImage(arrowRight)
     }
     radio.sendValue(channel, command)
@@ -501,126 +533,154 @@ game.onUpdateInterval(100, function () {
 ```
 
 ## Introduction @showdialog
-Your robot now knows three new things: **curves**, **turbo** and **attack**. Time to give the driver buttons for them.
+Your robot knows three new things. Time to give the driver the buttons:
 
-| Buttons | Number | Move |
-|---|---|---|
-| Up + Left | 5 | Curve left |
-| Up + Right | 6 | Curve right |
-| Hold B | +10 | Turbo |
-| Press A | 99 | Attack! |
+| Buttons | Move |
+|---|---|
+| Up + Left | Curve left |
+| Up + Right | Curve right |
+| Hold B | Turbo |
+| Press A | Attack! |
 
-Your template is your code from Battle Bot 3, plus two new ready-made pictures: ``||variables:curveLeft||`` and ``||variables:curveRight||``. Check the **group**, **name** and **icon** still match your robot.
+## Step 1: Match Your Robot
+Change ``||radio:radio set group||`` and ``||variables:set channel to||`` to match **your** robot. In ``||variables:set bot to sprite||``, pick your icon.
 
-## Step 1: Combine Buttons to Curve
-A micro:bit can't easily tell you "up **and** left". An Arcade controller can.
+#### ~ tutorialhint
+Every tutorial starts fresh with the **duck** and group **101**. Use the same ones as your robot.
 
-Inside the **up** branch, after ``||variables:set command to 3||``, add another ``||logic:if||``:
-- If ``||controller:is left button pressed||`` → **5** and ``||variables:curveLeft||``
-- Else if ``||controller:is right button pressed||`` → **6** and ``||variables:curveRight||``
+## Step 2: Curve Left
+Inside the **up** part, under ``||sprites:set arrow image to arrowUp||``, add ``||logic:if||`` ``||controller:is left button pressed||``. Inside: ``||variables:set command to||`` ``||variables:CURVE_LEFT||`` and ``||sprites:set arrow image to||`` ``||variables:curveLeft||``.
 
-This is a **nested if** — a decision inside a decision. The robot only curves if up is **also** held.
+#### ~ tutorialhint
+This is an **if inside an if**. The robot only curves if **up** is held **as well as** left. ``||variables:curveLeft||`` is a new ready-made picture.
 
 ```blocks
 game.onUpdateInterval(100, function () {
-    command = 2
+    command = STOP
     arrow.setImage(stopSign)
     if (controller.up.isPressed()) {
-        command = 3
+        command = FORWARD
         arrow.setImage(arrowUp)
         if (controller.left.isPressed()) {
-            command = 5
+            command = CURVE_LEFT
             arrow.setImage(curveLeft)
-        } else if (controller.right.isPressed()) {
-            command = 6
-            arrow.setImage(curveRight)
         }
     } else if (controller.down.isPressed()) {
-        command = 4
+        command = REVERSE
         arrow.setImage(arrowDown)
     } else if (controller.left.isPressed()) {
-        command = 0
+        command = SPIN_LEFT
         arrow.setImage(arrowLeft)
     } else if (controller.right.isPressed()) {
-        command = 1
+        command = SPIN_RIGHT
         arrow.setImage(arrowRight)
     }
     radio.sendValue(channel, command)
 })
 ```
 
-## Step 2: Hold B for Turbo
-After the big ``||logic:if||`` block, but **before** sending, add:
-- If ``||controller:is B button pressed||`` → ``||variables:change command by 10||`` and ``||sprites:bot say "TURBO!" for 200 ms||``
-
-So **B** + **up** sends **13**. Your robot knows that anything 10 or more means turbo — and it works with **every** move, without adding a single new move block.
+## Step 3: Curve Right
+Click **+** on that inside ``||logic:if||``: ``||controller:is right button pressed||`` → ``||variables:CURVE_RIGHT||`` and ``||variables:curveRight||``.
 
 ```blocks
 game.onUpdateInterval(100, function () {
-    command = 2
+    command = STOP
     arrow.setImage(stopSign)
     if (controller.up.isPressed()) {
-        command = 3
+        command = FORWARD
         arrow.setImage(arrowUp)
         if (controller.left.isPressed()) {
-            command = 5
+            command = CURVE_LEFT
             arrow.setImage(curveLeft)
         } else if (controller.right.isPressed()) {
-            command = 6
+            command = CURVE_RIGHT
             arrow.setImage(curveRight)
         }
     } else if (controller.down.isPressed()) {
-        command = 4
+        command = REVERSE
         arrow.setImage(arrowDown)
     } else if (controller.left.isPressed()) {
-        command = 0
+        command = SPIN_LEFT
         arrow.setImage(arrowLeft)
     } else if (controller.right.isPressed()) {
-        command = 1
+        command = SPIN_RIGHT
+        arrow.setImage(arrowRight)
+    }
+    radio.sendValue(channel, command)
+})
+```
+
+## Step 4: Hold B for Turbo
+After the big ``||logic:if||``, but **before** the send, add ``||logic:if||`` ``||controller:is B button pressed||``. Inside:
+- ``||variables:change command by 10||``
+- ``||sprites:bot say "TURBO!" for 200 ms||``
+
+#### ~ tutorialhint
+B + up sends **13**. Your robot knows anything 10 or more means turbo. It works with **every** move!
+
+```blocks
+game.onUpdateInterval(100, function () {
+    command = STOP
+    arrow.setImage(stopSign)
+    if (controller.up.isPressed()) {
+        command = FORWARD
+        arrow.setImage(arrowUp)
+        if (controller.left.isPressed()) {
+            command = CURVE_LEFT
+            arrow.setImage(curveLeft)
+        } else if (controller.right.isPressed()) {
+            command = CURVE_RIGHT
+            arrow.setImage(curveRight)
+        }
+    } else if (controller.down.isPressed()) {
+        command = REVERSE
+        arrow.setImage(arrowDown)
+    } else if (controller.left.isPressed()) {
+        command = SPIN_LEFT
+        arrow.setImage(arrowLeft)
+    } else if (controller.right.isPressed()) {
+        command = SPIN_RIGHT
         arrow.setImage(arrowRight)
     }
     if (controller.B.isPressed()) {
         command += 10
-        bot.sayText("TURBO!", 200)
+        bot.sayText("TURBO!", 200, false)
     }
     radio.sendValue(channel, command)
 })
 ```
 
-## Step 3: Press A to Attack (Optional)
-Only needed if your robot has a servo arm.
+## Step 5: Press A to Attack (Optional)
+Only if your robot has a servo arm. From ``||controller:Controller||``, drag ``||controller:on A button pressed||``. Inside:
+- ``||radio:radio send value||`` ``||variables:channel||`` = ``||variables:ATTACK||``
+- ``||scene:camera shake by 4 pixels for 200 ms||``
 
-An attack happens **once** per press, not over and over — so it gets its own event block, not the update loop.
-
-From ``||controller:Controller||``, drag ``||controller:on A button pressed||``. Inside it:
-- ``||radio:radio send value||`` ``||variables:channel||`` = **99**
-- ``||scene:camera shake by 4 pixels for 200 ms||`` — feedback for the driver!
+#### ~ tutorialhint
+An attack happens **once** per press, so it gets its own block, not the 100 ms loop.
 
 ```blocks
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    radio.sendValue(channel, 99)
+    radio.sendValue(channel, ATTACK)
     scene.cameraShake(4, 200)
 })
 ```
 
-## Step 4: Test in the Simulator
-Use the arrow keys, **Z** (A) and **X** (B):
-- Up + Left shows the **curve left** arrow
-- Holding X shows **TURBO!**
-- Z makes the screen shake
+## Step 6: Test in the Simulator
+Pick a team, then try:
+- Up + Left: the **curve** arrow
+- Hold **X** (that's **B**): **TURBO!**
+- **Z** (that's **A**): the screen shakes
 
-## Step 5: Download and Battle
-Download to your Arcade controller. Your robot should be running **Battle Bot 4: Battle Upgrades (Robot)**.
-
-Check everything works, then head to the sumo ring!
+## Step 7: Download and Battle
+Download to your Arcade controller. Your robot should be running **Battle Bot 4: Battle Upgrades (Robot)**. Check everything works, then into the arena!
 
 ## Complete! @showdialog
-You've built a complete battle bot system, one upgrade at a time:
+You've built a whole battle bot system, one step at a time:
 1. A remote control robot
-2. A better controller — same robot code
-3. A safety stop
+2. An Arcade controller, with the same robot code
+3. A safety stop and team colours
 4. Battle upgrades
 
-The big idea running through all of it is the **protocol**: controller and robot agree on what each number means. Adding new moves was just agreeing on new numbers.
+Controller and robot agree on what every number means. That's the **protocol**, and adding new moves was just agreeing on new numbers.
 
-**Challenge:** use the **Menu** button to switch between three speed settings, and show the current setting on screen.
+**Challenge:** make the robot's lights flash when it attacks.

@@ -671,7 +671,13 @@ Press **Z** (that's **A**) to pick red. Then hold the **arrow keys**. Does the a
 3. Plug your controller's micro:bit into the computer with a USB cable.
 4. Drag the .hex file onto the **MICROBIT** drive.
 
+![The ••• menu next to Download, showing Choose Hardware and Download as File](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/download-menu.png)
+
 #### ~ tutorialhint
+Pick this one in **Choose Hardware**:
+
+![The Kitronik Arcade for micro:bit hardware card](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/choose-hardware-kitronik-arcade.png)
+
 The **MICROBIT** drive appears in File Explorer (or Finder on a Mac), like a USB stick. When the light on the micro:bit stops flashing, it's done.
 
 Can't find the .hex file? Look in your **Downloads** folder.

@@ -559,11 +559,41 @@ radio.setGroup(101)
 let bot = sprites.create(heart, SpriteKind.Player)
 ```
 
-## Step 2: Curve Left
-Inside the **up** part, under ``||sprites:set arrow image to arrowUp||``, add ``||logic:if||`` ``||controller:is left button pressed||``. Inside: ``||variables:set command to||`` ``||variables:CURVE_LEFT||`` and ``||sprites:set arrow image to||`` ``||variables:curveLeft||``.
+## Step 2: Up and Left?
+Inside the **up** part, under ``||sprites:set arrow image to arrowUp||``, add ``||logic:if||`` ``||controller:is left button pressed||``.
 
 #### ~ tutorialhint
-This is an **if inside an if**. The robot only curves if **up** is held **as well as** left. ``||variables:curveLeft||`` is a new ready-made picture.
+This is an **if inside an if**. It only gets checked when **up** is already held.
+
+```blocks
+let arrow: Sprite = null
+game.onUpdateInterval(100, function () {
+    command = STOP
+    arrow.setImage(stopSign)
+    if (controller.up.isPressed()) {
+        command = FORWARD
+        arrow.setImage(arrowUp)
+        if (controller.left.isPressed()) {
+        }
+    } else if (controller.down.isPressed()) {
+        command = REVERSE
+        arrow.setImage(arrowDown)
+    } else if (controller.left.isPressed()) {
+        command = SPIN_LEFT
+        arrow.setImage(arrowLeft)
+    } else if (controller.right.isPressed()) {
+        command = SPIN_RIGHT
+        arrow.setImage(arrowRight)
+    }
+    radio.sendValue(channel, command)
+})
+```
+
+## Step 3: Then Curve Left
+Inside the new ``||logic:if||``: ``||variables:set command to||`` ``||variables:CURVE_LEFT||`` and ``||sprites:set arrow image to||`` ``||variables:curveLeft||``.
+
+#### ~ tutorialhint
+**Duplicate** the two blocks just above it and change them. ``||variables:curveLeft||`` is a new ready-made picture.
 
 ```blocks
 let arrow: Sprite = null
@@ -591,8 +621,11 @@ game.onUpdateInterval(100, function () {
 })
 ```
 
-## Step 3: Curve Right
-Click **+** on that inside ``||logic:if||``: ``||controller:is right button pressed||`` → ``||variables:CURVE_RIGHT||`` and ``||variables:curveRight||``.
+## Step 4: Curve Right
+Click **+** on the inside ``||logic:if||``: ``||controller:is right button pressed||`` → ``||variables:CURVE_RIGHT||`` and ``||variables:curveRight||``.
+
+#### ~ tutorialhint
+Click **+** once to get **else**, then again for **else if**. Duplicate the curve left blocks to fill it, and delete the empty **else**.
 
 ```blocks
 let arrow: Sprite = null
@@ -623,13 +656,49 @@ game.onUpdateInterval(100, function () {
 })
 ```
 
-## Step 4: Hold B for Turbo
-After the big ``||logic:if||``, but **before** the send, add ``||logic:if||`` ``||controller:is B button pressed||``. Inside:
-- ``||variables:change command by 10||``
-- ``||sprites:bot say "TURBO!" for 200 ms||``
+## Step 5: Is B Held?
+After the big ``||logic:if||``, but **before** the send, add ``||logic:if||`` ``||controller:is B button pressed||`` → ``||variables:change command by 10||``.
 
 #### ~ tutorialhint
 B + up sends **13**. Your robot knows anything 10 or more means turbo. It works with **every** move!
+
+```blocks
+let arrow: Sprite = null
+game.onUpdateInterval(100, function () {
+    command = STOP
+    arrow.setImage(stopSign)
+    if (controller.up.isPressed()) {
+        command = FORWARD
+        arrow.setImage(arrowUp)
+        if (controller.left.isPressed()) {
+            command = CURVE_LEFT
+            arrow.setImage(curveLeft)
+        } else if (controller.right.isPressed()) {
+            command = CURVE_RIGHT
+            arrow.setImage(curveRight)
+        }
+    } else if (controller.down.isPressed()) {
+        command = REVERSE
+        arrow.setImage(arrowDown)
+    } else if (controller.left.isPressed()) {
+        command = SPIN_LEFT
+        arrow.setImage(arrowLeft)
+    } else if (controller.right.isPressed()) {
+        command = SPIN_RIGHT
+        arrow.setImage(arrowRight)
+    }
+    if (controller.B.isPressed()) {
+        command += 10
+    }
+    radio.sendValue(channel, command)
+})
+```
+
+## Step 6: Show TURBO!
+Inside the B ``||logic:if||``, add ``||sprites:mySprite say||``. Change **mySprite** to ``||variables:bot||``, type **TURBO!**, and set it to **200 ms**.
+
+#### ~ tutorialhint
+The **say** block is in ``||sprites:Sprites||``. Use the one with **for ms**. Now the driver can see turbo is on.
 
 ```blocks
 let arrow: Sprite = null
@@ -665,7 +734,7 @@ game.onUpdateInterval(100, function () {
 })
 ```
 
-## Step 5: Press A to Attack (Optional)
+## Step 7: Press A to Attack (Optional)
 Only if your robot has a servo arm. From ``||controller:Controller||``, drag ``||controller:on A button pressed||``. Inside:
 - ``||radio:radio send value||`` ``||variables:channel||`` = ``||variables:ATTACK||``
 - ``||scene:camera shake by 4 pixels for 200 ms||``
@@ -680,13 +749,13 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 ```
 
-## Step 6: Test in the Simulator
+## Step 8: Test in the Simulator
 Pick a team, then try:
 - Up + Left: the **curve** arrow
 - Hold **X** (that's **B**): **TURBO!**
 - **Z** (that's **A**): the screen shakes
 
-## Step 7: Download to Your Controller
+## Step 9: Download to Your Controller
 1. Click **•••** next to **Download** → **Choose Hardware** → **Kitronik Arcade for micro:bit**.
 2. Click **•••** again → **Download as File**. A **.hex** file saves to your computer.
 3. Plug your controller's micro:bit into the computer with a USB cable.
@@ -697,7 +766,7 @@ The **MICROBIT** drive appears in File Explorer (or Finder on a Mac), like a USB
 
 Can't find the .hex file? Look in your **Downloads** folder.
 
-## Step 8: Battle!
+## Step 10: Battle!
 Switch on the robot (running **Battle Bot 4: Battle Upgrades (Robot)**), then the controller. Check everything works, then into the arena!
 
 ## Complete! @showdialog

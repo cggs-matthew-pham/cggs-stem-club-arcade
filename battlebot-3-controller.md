@@ -551,13 +551,35 @@ Nothing held? It sends ``||variables:STOP||``.
 Delete all 8 ``||controller:on button pressed||`` and ``||controller:on button released||`` blocks.
 
 ## Step 7: Every 100 ms
-Make a variable called **command**. From ``||game:Game||``, drag out ``||game:on game update every 500 ms||`` and change it to **100**. Inside it:
-- ``||variables:set command to||`` ``||variables:STOP||``
-- ``||sprites:set arrow image to||`` ``||variables:stopSign||``
-- ``||radio:radio send value||`` ``||variables:channel||`` = ``||variables:command||``
+Make a variable called **command**. From ``||game:Game||``, drag out ``||game:on game update every 500 ms||`` and change **500** to **100**.
 
 #### ~ tutorialhint
-The controller starts each check by assuming **stop**. Next you'll change that when a button is held.
+100 ms is a tenth of a second, so everything inside runs **10 times every second**.
+
+```blocks
+game.onUpdateInterval(100, function () {
+})
+```
+
+## Step 8: Start With Stop
+Inside it, add ``||variables:set command to||`` ``||variables:STOP||`` and ``||sprites:set arrow image to||`` ``||variables:stopSign||``.
+
+#### ~ tutorialhint
+Each check starts by assuming **stop**. If a button is held, you'll change it in a moment.
+
+```blocks
+let arrow: Sprite = null
+game.onUpdateInterval(100, function () {
+    command = STOP
+    arrow.setImage(stopSign)
+})
+```
+
+## Step 9: Send It
+At the bottom, add ``||radio:radio send value||`` ``||variables:channel||`` = ``||variables:command||``.
+
+#### ~ tutorialhint
+Whatever ``||variables:command||`` ends up as gets sent to the robot, 10 times every second.
 
 ```blocks
 let arrow: Sprite = null
@@ -568,11 +590,28 @@ game.onUpdateInterval(100, function () {
 })
 ```
 
-## Step 8: Hold Up to Go
-Between the arrow and the send, add ``||logic:if||`` ``||controller:is up button pressed||``. Inside: ``||variables:set command to||`` ``||variables:FORWARD||`` and ``||sprites:set arrow image to||`` ``||variables:arrowUp||``.
+## Step 10: Is Up Held?
+Between the arrow and the send, add ``||logic:if||`` ``||controller:is up button pressed||``.
 
 #### ~ tutorialhint
-The question has changed. Before, it was *"did a button just change?"* Now it's *"which button is being held right now?"*
+The question has changed. Before, it was *"did a button just change?"* Now it's *"which button is being held right now?"* ``||controller:is up button pressed||`` is in ``||controller:Controller||``.
+
+```blocks
+let arrow: Sprite = null
+game.onUpdateInterval(100, function () {
+    command = STOP
+    arrow.setImage(stopSign)
+    if (controller.up.isPressed()) {
+    }
+    radio.sendValue(channel, command)
+})
+```
+
+## Step 11: Then Go Forward
+Inside the ``||logic:if||``, add ``||variables:set command to||`` ``||variables:FORWARD||`` and ``||sprites:set arrow image to||`` ``||variables:arrowUp||``.
+
+#### ~ tutorialhint
+**Duplicate** the two blocks at the top of the loop, drag the copies into the ``||logic:if||``, and change them.
 
 ```blocks
 let arrow: Sprite = null
@@ -587,7 +626,7 @@ game.onUpdateInterval(100, function () {
 })
 ```
 
-## Step 9: The Other Directions
+## Step 12: The Other Directions
 Click **+** on that ``||logic:if||`` three times, for **down**, **left** and **right**.
 
 #### ~ tutorialhint
@@ -595,7 +634,7 @@ Click **+** on that ``||logic:if||`` three times, for **down**, **left** and **r
 - left → ``||variables:SPIN_LEFT||`` and ``||variables:arrowLeft||``
 - right → ``||variables:SPIN_RIGHT||`` and ``||variables:arrowRight||``
 
-New **else if** parts appear above the **else**. You can delete the empty **else**.
+**Duplicate** the two blocks inside the up part to fill each new part. New **else if** parts appear above the **else**. You can delete the empty **else**.
 
 ```blocks
 let arrow: Sprite = null
@@ -619,10 +658,10 @@ game.onUpdateInterval(100, function () {
 })
 ```
 
-## Step 10: Test in the Simulator
+## Step 13: Test in the Simulator
 Press **Z** (that's **A**) to pick red. Then hold the **arrow keys**. Does the arrow change, and show the stop sign when you let go?
 
-## Step 11: Download to Your Controller
+## Step 14: Download to Your Controller
 1. Click **•••** next to **Download** → **Choose Hardware** → **Kitronik Arcade for micro:bit**.
 2. Click **•••** again → **Download as File**. A **.hex** file saves to your computer.
 3. Plug your controller's micro:bit into the computer with a USB cable.
@@ -633,7 +672,7 @@ The **MICROBIT** drive appears in File Explorer (or Finder on a Mac), like a USB
 
 Can't find the .hex file? Look in your **Downloads** folder.
 
-## Step 12: Test the Safety Stop
+## Step 15: Test the Safety Stop
 Switch on the robot (running **Battle Bot 3: Safety Stop (Robot)**), then the controller.
 
 #### ~ tutorialhint

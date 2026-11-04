@@ -510,8 +510,17 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 ```
 
+## Duplicate! @showdialog
+The next blocks look almost the same as the one you just made. Instead of dragging new blocks, **copy** it:
+
+1. **Right-click** the block (on a Chromebook, tap with two fingers)
+2. Choose **Duplicate**
+3. Change the bits that are different
+
+It's faster, and you're less likely to miss a block.
+
 ## Step 6: Let Go to Stop
-Add another up block, but change **pressed** to **released**. Send ``||variables:STOP||`` and show ``||variables:stopSign||``.
+**Duplicate** your up block. In the copy, change **pressed** to **released**, ``||variables:FORWARD||`` to ``||variables:STOP||``, and ``||variables:arrowUp||`` to ``||variables:stopSign||``.
 
 #### ~ tutorialhint
 Now you **hold** to drive and **let go** to stop. No more pressing A+B!
@@ -528,7 +537,7 @@ controller.up.onEvent(ControllerButtonEvent.Released, function () {
 Do the same for **down**: pressed sends ``||variables:REVERSE||`` with ``||variables:arrowDown||``, released sends ``||variables:STOP||`` with ``||variables:stopSign||``.
 
 #### ~ tutorialhint
-Right-click a block and choose **Duplicate** to save time. Then change the button, move and picture.
+Duplicate your two up blocks, then change the button, move and picture in each copy.
 
 ```blocks
 let arrow: Sprite = null
@@ -546,7 +555,7 @@ controller.down.onEvent(ControllerButtonEvent.Released, function () {
 Now **left** (send ``||variables:SPIN_LEFT||``, ``||variables:arrowLeft||``) and **right** (send ``||variables:SPIN_RIGHT||``, ``||variables:arrowRight||``). Each needs a **released** block too.
 
 #### ~ tutorialhint
-Every **released** block is the same: send ``||variables:STOP||`` and show ``||variables:stopSign||``.
+Duplicate again! Every **released** block is the same: send ``||variables:STOP||`` and show ``||variables:stopSign||``.
 
 ```blocks
 let arrow: Sprite = null

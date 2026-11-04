@@ -543,7 +543,7 @@ controller.up.onEvent(ControllerButtonEvent.Released, function () {
 ## Step 7: Try It
 In the simulator, **hold** the up arrow key, then **let go**. Watch the picture.
 
-![Holding up: the arrow shows](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/sim-holding-up.png) ![Let go: the stop sign shows](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/sim-released.png)
+![Holding up: the arrow shows](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/sim-holding-up.png) ![Let go: the stop X shows](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/sim-released.png)
 
 #### ~ tutorialhint
 - Finger down: **pressed** runs → arrow

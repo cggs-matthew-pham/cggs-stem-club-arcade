@@ -671,8 +671,19 @@ Pick a team, then try:
 - Hold **X** (that's **B**): **TURBO!**
 - **Z** (that's **A**): the screen shakes
 
-## Step 7: Download and Battle
-Download to your Arcade controller. Your robot should be running **Battle Bot 4: Battle Upgrades (Robot)**. Check everything works, then into the arena!
+## Step 7: Download to Your Controller
+1. Click **Download**. If it asks which hardware, pick **micro:bit V2**.
+2. A **.hex** file saves to your computer.
+3. Plug your controller's micro:bit into the computer with a USB cable.
+4. Drag the .hex file onto the **MICROBIT** drive.
+
+#### ~ tutorialhint
+The **MICROBIT** drive appears in File Explorer (or Finder on a Mac), like a USB stick. When the light on the micro:bit stops flashing, it's done.
+
+Can't find the .hex file? Look in your **Downloads** folder.
+
+## Step 8: Battle!
+Switch on the robot (running **Battle Bot 4: Battle Upgrades (Robot)**), then the controller. Check everything works, then into the arena!
 
 ## Complete! @showdialog
 You've built a whole battle bot system, one step at a time:

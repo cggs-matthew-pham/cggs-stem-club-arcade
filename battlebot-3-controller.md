@@ -608,8 +608,19 @@ game.onUpdateInterval(100, function () {
 ## Step 10: Test in the Simulator
 Press **Z** (that's **A**) to pick red. Then hold the **arrow keys**. Does the arrow change, and show the stop sign when you let go?
 
-## Step 11: Download and Test
-Download to your Arcade controller. Your robot should be running **Battle Bot 3: Safety Stop (Robot)**.
+## Step 11: Download to Your Controller
+1. Click **Download**. If it asks which hardware, pick **micro:bit V2**.
+2. A **.hex** file saves to your computer.
+3. Plug your controller's micro:bit into the computer with a USB cable.
+4. Drag the .hex file onto the **MICROBIT** drive.
+
+#### ~ tutorialhint
+The **MICROBIT** drive appears in File Explorer (or Finder on a Mac), like a USB stick. When the light on the micro:bit stops flashing, it's done.
+
+Can't find the .hex file? Look in your **Downloads** folder.
+
+## Step 12: Test the Safety Stop
+Switch on the robot (running **Battle Bot 3: Safety Stop (Robot)**), then the controller.
 
 #### ~ tutorialhint
 1. Pick your team. Do the robot's lights change?

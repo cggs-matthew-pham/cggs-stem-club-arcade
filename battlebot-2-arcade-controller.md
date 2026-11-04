@@ -539,13 +539,24 @@ Use the **arrow keys** on your keyboard. Does the arrow change, and show the sto
 #### ~ tutorialhint
 The simulator can't reach your real robot, but it checks your buttons work.
 
-## Step 8: Download and Drive
-Click **Download**, choose your **micro:bit V2** Arcade hardware, and flash it. Switch on the robot, then the controller.
+## Step 8: Download to Your Controller
+1. Click **Download**. If it asks which hardware, pick **micro:bit V2**.
+2. A **.hex** file saves to your computer.
+3. Plug your controller's micro:bit into the computer with a USB cable.
+4. Drag the .hex file onto the **MICROBIT** drive.
+
+#### ~ tutorialhint
+The **MICROBIT** drive appears in File Explorer (or Finder on a Mac), like a USB stick. When the light on the micro:bit stops flashing, it's done.
+
+Can't find the .hex file? Look in your **Downloads** folder.
+
+## Step 9: Drive!
+Switch on the robot, then the controller. Hold the D-pad to drive.
 
 #### ~ tutorialhint
 Robot not responding? Check the **group** and **name** match Battle Bot 1 exactly.
 
-## Step 9: What If a Message Gets Lost?
+## Step 10: What If a Message Gets Lost?
 Hold **up** to drive, then switch the controller **off** while still holding. What does the robot do?
 
 #### ~ tutorialhint

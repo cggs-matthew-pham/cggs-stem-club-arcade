@@ -543,6 +543,8 @@ controller.up.onEvent(ControllerButtonEvent.Released, function () {
 ## Step 7: Try It
 In the simulator, **hold** the up arrow key, then **let go**. Watch the picture.
 
+![Holding up: the arrow shows](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/sim-holding-up.png) ![Let go: the stop sign shows](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/sim-released.png)
+
 #### ~ tutorialhint
 - Finger down: **pressed** runs → arrow
 - Holding: nothing runs → arrow stays
@@ -594,6 +596,8 @@ controller.right.onEvent(ControllerButtonEvent.Released, function () {
 
 ## Step 10: Test in the Simulator
 Use the **arrow keys** on your keyboard. Does the arrow change, and show the stop sign when you let go?
+
+![Holding left: the spin left arrow shows](https://raw.githubusercontent.com/cggs-matthew-pham/cggs-stem-club-arcade/main/static/images/sim-holding-left.png)
 
 #### ~ tutorialhint
 The simulator can't reach your real robot, but it checks your buttons work.

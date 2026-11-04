@@ -549,6 +549,8 @@ Make a variable called **command**. From ``||game:Game||``, drag out ``||game:on
 The controller starts each check by assuming **stop**. Next you'll change that when a button is held.
 
 ```blocks
+// @hide
+let arrow: Sprite = null
 game.onUpdateInterval(100, function () {
     command = STOP
     arrow.setImage(stopSign)
@@ -563,6 +565,8 @@ Between the arrow and the send, add ``||logic:if||`` ``||controller:is up button
 The question has changed. Before, it was *"did a button just change?"* Now it's *"which button is being held right now?"*
 
 ```blocks
+// @hide
+let arrow: Sprite = null
 game.onUpdateInterval(100, function () {
     command = STOP
     arrow.setImage(stopSign)
@@ -585,6 +589,8 @@ Click **+** on that ``||logic:if||`` three times, for **down**, **left** and **r
 New **else if** parts appear above the **else**. You can delete the empty **else**.
 
 ```blocks
+// @hide
+let arrow: Sprite = null
 game.onUpdateInterval(100, function () {
     command = STOP
     arrow.setImage(stopSign)

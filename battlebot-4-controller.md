@@ -555,6 +555,8 @@ Inside the **up** part, under ``||sprites:set arrow image to arrowUp||``, add ``
 This is an **if inside an if**. The robot only curves if **up** is held **as well as** left. ``||variables:curveLeft||`` is a new ready-made picture.
 
 ```blocks
+// @hide
+let arrow: Sprite = null
 game.onUpdateInterval(100, function () {
     command = STOP
     arrow.setImage(stopSign)
@@ -583,6 +585,8 @@ game.onUpdateInterval(100, function () {
 Click **+** on that inside ``||logic:if||``: ``||controller:is right button pressed||`` → ``||variables:CURVE_RIGHT||`` and ``||variables:curveRight||``.
 
 ```blocks
+// @hide
+let arrow: Sprite = null
 game.onUpdateInterval(100, function () {
     command = STOP
     arrow.setImage(stopSign)
@@ -619,6 +623,10 @@ After the big ``||logic:if||``, but **before** the send, add ``||logic:if||`` ``
 B + up sends **13**. Your robot knows anything 10 or more means turbo. It works with **every** move!
 
 ```blocks
+// @hide
+let arrow: Sprite = null
+// @hide
+let bot: Sprite = null
 game.onUpdateInterval(100, function () {
     command = STOP
     arrow.setImage(stopSign)

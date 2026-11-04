@@ -472,6 +472,8 @@ Add ``||controller:on up button pressed||`` → ``||radio:radio send value||`` `
 The arrow on screen shows the driver what the robot has been told to do.
 
 ```blocks
+// @hide
+let arrow: Sprite = null
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     radio.sendValue(channel, FORWARD)
     arrow.setImage(arrowUp)
@@ -485,6 +487,8 @@ Add another up block, but change **pressed** to **released**. Send ``||variables
 Now you **hold** to drive and **let go** to stop. No more pressing A+B!
 
 ```blocks
+// @hide
+let arrow: Sprite = null
 controller.up.onEvent(ControllerButtonEvent.Released, function () {
     radio.sendValue(channel, STOP)
     arrow.setImage(stopSign)
@@ -498,6 +502,8 @@ Do the same for **down**: pressed sends ``||variables:REVERSE||`` with ``||varia
 Right-click a block and choose **Duplicate** to save time. Then change the button, move and picture.
 
 ```blocks
+// @hide
+let arrow: Sprite = null
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     radio.sendValue(channel, REVERSE)
     arrow.setImage(arrowDown)
@@ -515,6 +521,8 @@ Now **left** (send ``||variables:SPIN_LEFT||``, ``||variables:arrowLeft||``) and
 Every **released** block is the same: send ``||variables:STOP||`` and show ``||variables:stopSign||``.
 
 ```blocks
+// @hide
+let arrow: Sprite = null
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     radio.sendValue(channel, SPIN_LEFT)
     arrow.setImage(arrowLeft)
